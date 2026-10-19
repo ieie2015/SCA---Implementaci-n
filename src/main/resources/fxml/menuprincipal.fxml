@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
+      minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="570.0"
+      spacing="15.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.seminario.controller.DashBoardController">
+   <children>
+      <Button mnemonicParsing="false" prefHeight="77.0" prefWidth="329.0" text="Gestionar Solicitudes de Agendamiento" fx:id="btnSolicitudes"
+      onAction="#abrirSolicitudes">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnAudiencias"  onAction="#abrirAudiencias" mnemonicParsing="false" prefHeight="77.0" prefWidth="329.0" text="Gestionar Audiencias">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnDisponibilidades" onAction="#abrirDisponibilidades" mnemonicParsing="false" prefHeight="77.0" prefWidth="329.0" text="Gestionar Disponibilidades">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnSalas" onAction="#abrirSalas" mnemonicParsing="false" prefHeight="77.0" prefWidth="329.0" text="Gestionar Salas">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnReportes" onAction="#abrirReportes" mnemonicParsing="false" prefHeight="77.0" prefWidth="329.0" text="Generar Reportes">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnSalir"  onAction="#salir" mnemonicParsing="false" prefHeight="77.0" prefWidth="329.0" text="Salir">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+   </children>
+</VBox>

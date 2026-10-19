@@ -2,11 +2,11 @@ package org.seminario.controller;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import org.seminario.model.EstadoSolicitud;
 import org.seminario.model.PrioridadSolicitud;
 import org.seminario.model.SolicitudAgendamiento;
@@ -66,6 +66,14 @@ public class SolicitudAgendamientoController {
     private TableColumn<SolicitudAgendamiento, String> colTipoAudiencia;
     @FXML
     private TableColumn<SolicitudAgendamiento, Boolean> colSeleccionar;
+    @FXML
+    Button btnAceptar;
+    @FXML
+    Button btnRechazar;
+    @FXML
+    Button btnObservar;
+    @FXML
+    Button btnVolver;
 
 
     @FXML
@@ -303,31 +311,19 @@ public class SolicitudAgendamientoController {
 
         txfObservaciones.setText(solicitud.getObservaciones());
     }
+    @FXML
+    private void volverMenuPrincipal() {
+
+        DashBoardController.dashboardStage.show();
+
+        Stage ventanaActual =
+                (Stage) btnVolver
+                        .getScene()
+                        .getWindow();
+
+        ventanaActual.close();
+
+    }
 
 }
 
-/*public class SolicitudAgendamientoController {
-
-    private final SolicitudAgendamientoService service =
-            new SolicitudAgendamientoService();
-
-    public void buscar() {
-
-    }
-
-    public void procesarSolicitud() {
-
-    }
-
-    public void rechazarSolicitud() {
-
-    }
-
-    public void actualizarObservaciones() {
-
-    }
-
-    private void refrescarTabla() {
-
-    }
-}*/

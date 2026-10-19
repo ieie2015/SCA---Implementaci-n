@@ -11,11 +11,16 @@ public class PrincipalApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        System.out.println(
+                getClass().getResource(
+                        "/fxml/menuprincipal.fxml"
+                )
+        );
 
         FXMLLoader loader =
                 new FXMLLoader(
                         getClass().getResource(
-                                "/fxml/SolicitudAgendamiento.fxml"
+                                "/fxml/menuprincipal.fxml"
                         )
                 );
 

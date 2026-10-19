@@ -109,6 +109,7 @@ public class SolicitudAgendamiento {
     public String toString() {
         return nroSolicitud + " - " + caratula;
     }
+
     private SolicitudAgendamiento mapear(ResultSet rs)
             throws SQLException {
 

@@ -96,11 +96,6 @@
             </HBox>
             <HBox prefHeight="23.0" prefWidth="600.0">
                <children>
-                  <Button mnemonicParsing="false" text="Button">
-                     <HBox.margin>
-                        <Insets left="10.0" top="40.0" />
-                     </HBox.margin>
-                  </Button>
                   <Button mnemonicParsing="false" onAction="#procesarSolicitud" text="Aceptar">
                      <HBox.margin>
                         <Insets left="10.0" top="40.0" />
@@ -112,6 +107,11 @@
                      </HBox.margin>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#observarSolicitud" text="Observar">
+                     <HBox.margin>
+                        <Insets left="10.0" top="40.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#volverMenuPrincipal" text="Volver al menú principal">
                      <HBox.margin>
                         <Insets left="10.0" top="40.0" />
                      </HBox.margin>
