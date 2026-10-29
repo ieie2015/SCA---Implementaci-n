@@ -194,6 +194,12 @@ public class AudienciaDAO {
         return consultar(SELECT_BASE + " ORDER BY a.FECHA_CREACION DESC");
     }
 
+    public List<Audiencia> listarPendientesPlanificacion() {
+        return buscarPorEstado(
+                EstadoAudiencia.PENDIENTE_PLANIFICACION.name()
+        );
+    }
+
     public List<Audiencia> buscarPorEstado(String estado) {
         String sql = SELECT_BASE + " WHERE ea.CODIGO = ? ORDER BY a.NRO_AUDIENCIA";
         try (Connection con = ConexionBD.conectar();

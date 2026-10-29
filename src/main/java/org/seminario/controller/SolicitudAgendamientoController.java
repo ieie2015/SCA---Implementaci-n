@@ -137,26 +137,19 @@ public class SolicitudAgendamientoController {
 
     private void refrescarTabla() {
         tvSolicitudes.setItems(
-                FXCollections.observableArrayList(service.buscarSolicitudes(
-                        null, null, null, null)));
-
-        var lista = service.buscarSolicitudes(
-                null,
-                null,
-                null,
-                null
+                FXCollections.observableArrayList(
+                        service.listarPendientesSinAudiencia()
+                )
         );
+
+        var lista = service.listarPendientesSinAudiencia();
 
         System.out.println(
                 "Solicitudes recuperadas: "
                         + lista.size()
         );
 
-        tvSolicitudes.setItems(
-                FXCollections.observableArrayList(
-                        lista
-                )
-        );
+        tvSolicitudes.setItems(FXCollections.observableArrayList(lista));
 
     }
 
@@ -239,7 +232,12 @@ public class SolicitudAgendamientoController {
 
         System.out.println("Solicitud seleccionada: " + seleccionada);
 
-        if(seleccionada == null) {
+        if (seleccionada == null) {
+            mostrarMensaje(
+                    Alert.AlertType.WARNING,
+                    "Aceptar solicitud",
+                    "Debe seleccionar una solicitud."
+            );
             System.out.println("No hay una solicitud seleccionada");
             return;
         }
@@ -251,6 +249,29 @@ public class SolicitudAgendamientoController {
 
         System.out.println("Resultado de procesar solicitud: " + resultado);
         refrescarTabla();
+
+        mostrarMensaje(
+                resultado
+                        ? Alert.AlertType.INFORMATION
+                        : Alert.AlertType.ERROR,
+                resultado
+                        ? "Solicitud procesada"
+                        : "No se pudo procesar la solicitud",
+                resultado
+                        ? "Se creó la audiencia pendiente de planificación."
+                        : "La solicitud no pudo convertirse en audiencia."
+        );
+    }
+
+    private void mostrarMensaje(
+            Alert.AlertType tipo,
+            String titulo,
+            String mensaje) {
+        Alert alert = new Alert(tipo);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 
     @FXML
