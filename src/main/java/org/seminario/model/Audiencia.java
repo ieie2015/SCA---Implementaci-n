@@ -1,92 +1,119 @@
 package org.seminario.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+/**
+ * Datos persistidos en la tabla AUDIENCIA.
+ *
+ * Los participantes se mantienen en AUDIENCIA_PARTICIPANTE y no forman
+ * parte de las columnas directas de esta entidad.
+ */
 public class Audiencia {
 
-    private int idAudiencia;
-    private String CUIJ;
-    private String caratula;
-    private TipoAudiencia tipoAudiencia;
-
-    private LocalDate fecha;
+    private long idAudiencia;
+    private long idSolicitudAgendamiento;
+    private long idTipoAudiencia;
+    private long idEstadoAudiencia;
+    private Integer idSala;
+    private long nroAudiencia;
+    private LocalDateTime fechaCreacion;
+    private LocalDate fechaProgramacion;
     private LocalTime horaInicio;
-
-    private Integer duracionMinutos;
-
-    private String estado;
-
-    private Sala sala;
-
-    private Juez juez;
-    private Fiscal fiscal;
-    private Defensor defensor;
-    private Imputado imputado;
-
+    private int duracionEstimada;
+    private EstadoAudiencia estado;
     private String observaciones;
 
     public Audiencia(
-            int idAudiencia,
-            String CUIJ,
-            String caratula,
-            TipoAudiencia tipoAudiencia,
-            LocalDate fecha,
+            long idAudiencia,
+            long idSolicitudAgendamiento,
+            long idTipoAudiencia,
+            long idEstadoAudiencia,
+            Integer idSala,
+            long nroAudiencia,
+            LocalDateTime fechaCreacion,
+            LocalDate fechaProgramacion,
             LocalTime horaInicio,
-            Integer duracionMinutos,
-            String estado,
-            Sala sala,
-            Juez juez,
-            Fiscal fiscal,
-            Defensor defensor,
-            Imputado imputado,
+            int duracionEstimada,
+            EstadoAudiencia estado,
             String observaciones) {
-
         this.idAudiencia = idAudiencia;
-        this.CUIJ = CUIJ;
-        this.caratula = caratula;
-        this.fecha = fecha;
+        this.idSolicitudAgendamiento = idSolicitudAgendamiento;
+        this.idTipoAudiencia = idTipoAudiencia;
+        this.idEstadoAudiencia = idEstadoAudiencia;
+        this.idSala = idSala;
+        this.nroAudiencia = nroAudiencia;
+        this.fechaCreacion = fechaCreacion;
+        this.fechaProgramacion = fechaProgramacion;
         this.horaInicio = horaInicio;
-        this.duracionMinutos = duracionMinutos;
+        this.duracionEstimada = duracionEstimada;
         this.estado = estado;
-        this.sala = sala;
-        this.juez = juez;
-        this.fiscal = fiscal;
-        this.defensor = defensor;
-        this.imputado = imputado;
         this.observaciones = observaciones;
     }
 
-    public int getIdAudiencia() {
+    public long getIdAudiencia() {
         return idAudiencia;
     }
 
-    public void setIdAudiencia(int idAudiencia) {
+    public void setIdAudiencia(long idAudiencia) {
         this.idAudiencia = idAudiencia;
     }
 
-    public String getCUIJ() {
-        return CUIJ;
+    public long getIdSolicitudAgendamiento() {
+        return idSolicitudAgendamiento;
     }
 
-    public void setCUIJ(String numeroExpediente) {
-        this.CUIJ = numeroExpediente;
+    public void setIdSolicitudAgendamiento(long idSolicitudAgendamiento) {
+        this.idSolicitudAgendamiento = idSolicitudAgendamiento;
     }
 
-    public String getCaratula() {
-        return caratula;
+    public long getIdTipoAudiencia() {
+        return idTipoAudiencia;
     }
 
-    public void setCaratula(String caratula) {
-        this.caratula = caratula;
+    public void setIdTipoAudiencia(long idTipoAudiencia) {
+        this.idTipoAudiencia = idTipoAudiencia;
     }
 
-    public LocalDate getFecha() {
-        return fecha;
+    public long getIdEstadoAudiencia() {
+        return idEstadoAudiencia;
     }
 
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
+    public void setIdEstadoAudiencia(long idEstadoAudiencia) {
+        this.idEstadoAudiencia = idEstadoAudiencia;
+    }
+
+    public Integer getIdSala() {
+        return idSala;
+    }
+
+    public void setIdSala(Integer idSala) {
+        this.idSala = idSala;
+    }
+
+    public long getNroAudiencia() {
+        return nroAudiencia;
+    }
+
+    public void setNroAudiencia(long nroAudiencia) {
+        this.nroAudiencia = nroAudiencia;
+    }
+
+    public LocalDateTime getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(LocalDateTime fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    public LocalDate getFechaProgramacion() {
+        return fechaProgramacion;
+    }
+
+    public void setFechaProgramacion(LocalDate fechaProgramacion) {
+        this.fechaProgramacion = fechaProgramacion;
     }
 
     public LocalTime getHoraInicio() {
@@ -97,60 +124,20 @@ public class Audiencia {
         this.horaInicio = horaInicio;
     }
 
-    public Integer getDuracionMinutos() {
-        return duracionMinutos;
+    public int getDuracionEstimada() {
+        return duracionEstimada;
     }
 
-    public void setDuracionMinutos(Integer duracionMinutos) {
-        this.duracionMinutos = duracionMinutos;
+    public void setDuracionEstimada(int duracionEstimada) {
+        this.duracionEstimada = duracionEstimada;
     }
 
-    public String getEstado() {
+    public EstadoAudiencia getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(EstadoAudiencia estado) {
         this.estado = estado;
-    }
-
-    public Sala getSala() {
-        return sala;
-    }
-
-    public void setSala(Sala sala) {
-        this.sala = sala;
-    }
-
-    public Juez getJuez() {
-        return juez;
-    }
-
-    public void setJuez(Juez juez) {
-        this.juez = juez;
-    }
-
-    public Fiscal getFiscal() {
-        return fiscal;
-    }
-
-    public void setFiscal(Fiscal fiscal) {
-        this.fiscal = fiscal;
-    }
-
-    public Defensor getDefensor() {
-        return defensor;
-    }
-
-    public void setDefensor(Defensor defensor) {
-        this.defensor = defensor;
-    }
-
-    public Imputado getImputado() {
-        return imputado;
-    }
-
-    public void setImputado(Imputado imputado) {
-        this.imputado = imputado;
     }
 
     public String getObservaciones() {

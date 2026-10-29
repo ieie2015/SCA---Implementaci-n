@@ -1,6 +1,7 @@
 package org.seminario.service;
 
 import org.seminario.dao.SolicitudAgendamientoDAO;
+import org.seminario.dao.AudienciaDAO;
 import org.seminario.model.EstadoSolicitud;
 import org.seminario.model.PrioridadSolicitud;
 import org.seminario.model.SolicitudAgendamiento;
@@ -11,6 +12,8 @@ public class SolicitudAgendamientoService {
 
     private final SolicitudAgendamientoDAO dao =
             new SolicitudAgendamientoDAO();
+    private final AudienciaDAO audienciaDAO =
+            new AudienciaDAO();
 
     public List<SolicitudAgendamiento>
     buscarSolicitudes(
@@ -29,6 +32,13 @@ public class SolicitudAgendamientoService {
 
     public boolean procesarSolicitud(
             long idSolicitud) {
+        if (audienciaDAO.tieneAudienciaAsociada(idSolicitud)) {
+            return false;
+        }
+
+        if (!audienciaDAO.crearDesdeSolicitud(idSolicitud)) {
+            return false;
+        }
 
         return dao.actualizarEstado(
                 idSolicitud,

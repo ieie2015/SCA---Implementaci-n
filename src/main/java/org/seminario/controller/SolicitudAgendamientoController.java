@@ -230,21 +230,26 @@ public class SolicitudAgendamientoController {
 
     @FXML
     private void procesarSolicitud() {
+        System.out.println("Se presionó Aceptar");
 
         SolicitudAgendamiento seleccionada =
                 tvSolicitudes
                         .getSelectionModel()
                         .getSelectedItem();
 
+        System.out.println("Solicitud seleccionada: " + seleccionada);
+
         if(seleccionada == null) {
+            System.out.println("No hay una solicitud seleccionada");
             return;
         }
 
-        service.procesarSolicitud(
+        boolean resultado = service.procesarSolicitud(
                 seleccionada
                         .getIdSolicitudAgendamiento()
         );
 
+        System.out.println("Resultado de procesar solicitud: " + resultado);
         refrescarTabla();
     }
 
@@ -326,4 +331,3 @@ public class SolicitudAgendamientoController {
     }
 
 }
-
