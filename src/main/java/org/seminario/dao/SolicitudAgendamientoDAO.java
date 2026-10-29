@@ -89,6 +89,19 @@ public class SolicitudAgendamientoDAO {
             parametros.add(
                     estado.name()
             );
+
+            if (estado == EstadoSolicitud.PENDIENTE) {
+                sql.append(
+                        """
+                         AND NOT EXISTS (
+                             SELECT 1
+                               FROM AUDIENCIA a
+                              WHERE a.idSOLICITUD_AGENDAMIENTO =
+                                    SOLICITUD_AGENDAMIENTO.idSOLICITUD_AGENDAMIENTO
+                         )
+                        """
+                );
+            }
         }
 
         if (prioridad != null) {
@@ -162,6 +175,15 @@ public class SolicitudAgendamientoDAO {
         }
 
         return lista;
+    }
+
+    public List<SolicitudAgendamiento> listarPendientesSinAudiencia() {
+        return buscarConFiltros(
+                EstadoSolicitud.PENDIENTE,
+                null,
+                null,
+                null
+        );
     }
 
     private SolicitudAgendamiento mapear(

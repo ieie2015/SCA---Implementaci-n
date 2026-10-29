@@ -30,10 +30,19 @@ public class SolicitudAgendamientoService {
         );
     }
 
+    public List<SolicitudAgendamiento> listarPendientesSinAudiencia() {
+        return dao.listarPendientesSinAudiencia();
+    }
+
     public boolean procesarSolicitud(
             long idSolicitud) {
         if (audienciaDAO.tieneAudienciaAsociada(idSolicitud)) {
-            return false;
+            // Recupera el estado parcial producido si la audiencia se creó
+            // pero la actualización de la solicitud falló.
+            return dao.actualizarEstado(
+                    idSolicitud,
+                    EstadoSolicitud.PROCESADA
+            );
         }
 
         if (!audienciaDAO.crearDesdeSolicitud(idSolicitud)) {
