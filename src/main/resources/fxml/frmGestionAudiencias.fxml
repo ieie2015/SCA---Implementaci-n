@@ -1,53 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="600.0" prefWidth="850.0"
+<BorderPane prefHeight="760.0" prefWidth="980.0"
+            onCloseRequest="#cerrarVentana"
             xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.seminario.controller.GestionAudienciasController">
     <top>
         <VBox spacing="8.0" BorderPane.alignment="CENTER">
             <Label text="Audiencias pendientes de planificación" />
-            <Label text="Estas audiencias fueron creadas por CU01 y están listas para CU02." />
+            <Label text="Seleccione una audiencia para completar su programación." />
         </VBox>
     </top>
     <center>
-        <TableView fx:id="tvAudiencias" prefHeight="400.0"
-                   prefWidth="800.0" BorderPane.alignment="CENTER">
-            <columns>
-                <TableColumn fx:id="colNroAudiencia"
-                             prefWidth="150.0"
-                             text="N° Audiencia" />
-                <TableColumn fx:id="colIdSolicitud"
-                             prefWidth="180.0"
-                             text="ID Solicitud" />
-                <TableColumn fx:id="colTipoAudiencia"
-                             prefWidth="160.0"
-                             text="Tipo Audiencia" />
-                <TableColumn fx:id="colEstado"
-                             prefWidth="180.0"
-                             text="Estado" />
-                <TableColumn fx:id="colDuracion"
-                             prefWidth="150.0"
-                             text="Duración (min)" />
-            </columns>
-        </TableView>
+        <VBox spacing="10.0">
+            <TableView fx:id="tvAudiencias" prefHeight="280.0">
+                <columns>
+                    <TableColumn fx:id="colNroAudiencia" prefWidth="140.0" text="N° Audiencia" />
+                    <TableColumn fx:id="colIdSolicitud" prefWidth="140.0" text="ID Solicitud" />
+                    <TableColumn fx:id="colTipoAudiencia" prefWidth="150.0" text="Tipo Audiencia" />
+                    <TableColumn fx:id="colEstado" prefWidth="190.0" text="Estado" />
+                    <TableColumn fx:id="colDuracion" prefWidth="140.0" text="Duración (min)" />
+                </columns>
+            </TableView>
+            <Label fx:id="lblAudienciaSeleccionada" text="No hay audiencia seleccionada." />
+            <HBox spacing="10.0">
+                <Label text="Fecha:" />
+                <DatePicker fx:id="dpFecha" onAction="#cargarSalas" />
+                <Label text="Sala:" />
+                <ComboBox fx:id="cbSala" onAction="#cargarHorarios" disable="true" prefWidth="220.0" />
+                <Label text="Hora:" />
+                <ComboBox fx:id="cbHora" disable="true" prefWidth="110.0" />
+            </HBox>
+            <Label text="Participantes disponibles (seleccione uno o más)" />
+            <TableView fx:id="tvParticipantes" prefHeight="150.0">
+                <columns>
+                    <TableColumn fx:id="colTipoParticipante" prefWidth="160.0" text="Tipo" />
+                    <TableColumn fx:id="colNombreParticipante" prefWidth="280.0" text="Nombre" />
+                    <TableColumn fx:id="colDocumentoParticipante" prefWidth="160.0" text="DNI" />
+                </columns>
+            </TableView>
+        </VBox>
     </center>
     <bottom>
         <HBox alignment="CENTER_RIGHT" spacing="10.0">
-            <Button mnemonicParsing="false"
-                    onAction="#refrescar"
-                    text="Actualizar" />
-            <Button mnemonicParsing="false"
-                    onAction="#volverMenuPrincipal"
-                    text="Volver al menú principal" />
+            <Button fx:id="btnProgramar" onAction="#programarAudiencia"
+                    disable="true" text="Programar audiencia" />
+            <Button onAction="#refrescar" text="Actualizar" />
+            <Button onAction="#volverMenuPrincipal" text="Volver al menú principal" />
         </HBox>
     </bottom>
 </BorderPane>

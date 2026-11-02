@@ -339,8 +339,15 @@ public class SolicitudAgendamientoController {
     }
     @FXML
     private void volverMenuPrincipal() {
+        cerrarVentana();
+    }
 
-        DashBoardController.dashboardStage.show();
+    @FXML
+    private void cerrarVentana() {
+
+        if (DashBoardController.dashboardStage != null) {
+            DashBoardController.dashboardStage.show();
+        }
 
         Stage ventanaActual =
                 (Stage) btnVolver
