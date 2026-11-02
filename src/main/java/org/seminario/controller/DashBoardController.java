@@ -11,6 +11,7 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.io.IOException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -96,8 +97,29 @@ import java.util.ResourceBundle;
         }
         @FXML
         private void abrirAudiencias() {
+            try {
+                dashboardStage =
+                        (Stage) btnAudiencias
+                                .getScene()
+                                .getWindow();
 
-            mostrarModuloEnDesarrollo();
+                dashboardStage.hide();
+
+                FXMLLoader loader =
+                        new FXMLLoader(
+                                getClass().getResource(
+                                        "/fxml/frmGestionAudiencias.fxml"
+                                )
+                        );
+
+                Scene scene = new Scene(loader.load());
+                Stage ventanaAudiencias = new Stage();
+                ventanaAudiencias.setScene(scene);
+                ventanaAudiencias.setTitle("Gestionar Audiencias");
+                ventanaAudiencias.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         @FXML
         private void abrirDisponibilidades() {
