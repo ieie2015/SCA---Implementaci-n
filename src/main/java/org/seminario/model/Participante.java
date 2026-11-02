@@ -10,7 +10,7 @@ public  abstract class Participante {
     private String telefono;
     private String dni;
 
-    Participante(int idPart,int idTipoPart,String nom,String ape,String dom,String email,String telef,String dni){
+    protected Participante(int idPart,int idTipoPart,String nom,String ape,String dom,String email,String telef,String dni){
         this.idParticipante=idPart;
         this.idTipoParticipante=idTipoPart;
         this.nombre=nom;
@@ -31,6 +31,10 @@ public  abstract class Participante {
 
     public String getApellido() {
         return apellido;
+    }
+
+    public String getNombreCompleto() {
+        return nombre + " " + apellido;
     }
 
     public void setApellido(String apellido) {
@@ -76,5 +80,10 @@ public  abstract class Participante {
 
     public int getIdTipoParticipante() {
         return idTipoParticipante;
+    }
+
+    @Override
+    public String toString() {
+        return getTipoParticipante() + ": " + nombre + " " + apellido;
     }
 }

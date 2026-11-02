@@ -92,4 +92,9 @@ public class Sala {
     public void setTipoSala(TipoSala tipoSala) {
         TipoSala = tipoSala;
     }
+
+    @Override
+    public String toString() {
+        return codigo + " - " + nombre;
+    }
 }

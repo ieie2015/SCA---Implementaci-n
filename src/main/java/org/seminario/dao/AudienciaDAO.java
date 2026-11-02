@@ -200,6 +200,80 @@ public class AudienciaDAO {
         );
     }
 
+    public List<Audiencia> listarPendientesPlanificacionSql()
+            throws SQLException {
+        String sql = SELECT_BASE
+                + " WHERE ea.CODIGO = ? ORDER BY a.NRO_AUDIENCIA";
+        try (Connection con = ConexionBD.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, EstadoAudiencia.PENDIENTE_PLANIFICACION.name());
+            return listar(ps);
+        }
+    }
+
+    public boolean existeConflictoSala(
+            long idAudiencia,
+            int idSala,
+            LocalDate fecha,
+            LocalTime horaInicio,
+            LocalTime horaFin) throws SQLException {
+        String sql = """
+                SELECT 1
+                  FROM AUDIENCIA a
+                  JOIN ESTADO_AUDIENCIA ea
+                    ON ea.idESTADO_AUDIENCIA = a.idESTADO_AUDIENCIA
+                 WHERE a.idSALA = ?
+                   AND a.FECHA_PROGRAMACION = ?
+                   AND a.idAUDIENCIA <> ?
+                   AND ea.CODIGO NOT IN ('CANCELADA', 'SUSPENDIDA')
+                   AND a.HORA_INICIO < ?
+                   AND ADDTIME(
+                           a.HORA_INICIO,
+                           SEC_TO_TIME(a.DURACION_ESTIMADA * 60)
+                       ) > ?
+                 LIMIT 1
+                """;
+        try (Connection con = ConexionBD.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idSala);
+            ps.setObject(2, fecha);
+            ps.setLong(3, idAudiencia);
+            ps.setObject(4, horaFin);
+            ps.setObject(5, horaInicio);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
+
+    public boolean programar(
+            long idAudiencia,
+            int idSala,
+            LocalDate fecha,
+            LocalTime horaInicio) throws SQLException {
+        String sql = """
+                UPDATE AUDIENCIA a
+                  JOIN ESTADO_AUDIENCIA ep
+                    ON ep.CODIGO = 'PENDIENTE_PLANIFICACION'
+                  JOIN ESTADO_AUDIENCIA eg
+                    ON eg.CODIGO = 'PROGRAMADA'
+                   SET a.idSALA = ?,
+                       a.FECHA_PROGRAMACION = ?,
+                       a.HORA_INICIO = ?,
+                       a.idESTADO_AUDIENCIA = eg.idESTADO_AUDIENCIA
+                 WHERE a.idAUDIENCIA = ?
+                   AND a.idESTADO_AUDIENCIA = ep.idESTADO_AUDIENCIA
+                """;
+        try (Connection con = ConexionBD.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idSala);
+            ps.setObject(2, fecha);
+            ps.setObject(3, horaInicio);
+            ps.setLong(4, idAudiencia);
+            return ps.executeUpdate() == 1;
+        }
+    }
+
     public List<Audiencia> buscarPorEstado(String estado) {
         String sql = SELECT_BASE + " WHERE ea.CODIGO = ? ORDER BY a.NRO_AUDIENCIA";
         try (Connection con = ConexionBD.conectar();

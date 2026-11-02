@@ -1,0 +1,9 @@
+idPARTICIPANTE,idTIPO_PARTICIPANTE,NOMBRE,APELLIDO,DOMICILIO,TELEFONO,EMAIL,DNI
+101,1,Carlos,Rodriguez,Calle Mitre 100,3514000101,carlos.rodriguez@prueba.local,30100101
+102,2,Sofia,Martinez,Calle Colon 200,3514000102,sofia.martinez@prueba.local,30200202
+103,3,Jorge,Castro,Calle San Martin 300,3514000103,jorge.castro@prueba.local,30300303
+104,1,Laura,Gomez,Calle Belgrano 400,3514000104,laura.gomez@prueba.local,30400404
+105,2,Martin,Suarez,Calle Rivadavia 500,3514000105,martin.suarez@prueba.local,30500505
+106,3,Paula,Fernandez,Calle Lavalle 600,3514000106,paula.fernandez@prueba.local,30600606
+107,4,Nicolas,Acosta,Calle Rioja 700,3514000107,nicolas.acosta@prueba.local,30700707
+108,5,Valeria,Diaz,Calle Santa Rosa 800,3514000108,valeria.diaz@prueba.local,30800808
