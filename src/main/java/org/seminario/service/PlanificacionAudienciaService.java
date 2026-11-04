@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class PlanificacionAudienciaService {
 
@@ -47,6 +48,25 @@ public class PlanificacionAudienciaService {
         );
     }
 
+    public Set<LocalDate> listarFechasConSalas(
+            Audiencia audiencia) throws SQLException {
+        if (audiencia == null) {
+            throw new IllegalArgumentException(
+                    "Debe seleccionar una audiencia."
+            );
+        }
+        Set<LocalDate> fechas = salaDAO.listarFechasDisponibles(
+                audiencia.getIdTipoAudiencia()
+        );
+        System.out.println(
+                "[CU02][Service] Audiencia "
+                        + audiencia.getNroAudiencia()
+                        + ", idTipoAudiencia="
+                        + audiencia.getIdTipoAudiencia()
+                        + ", fechasConSalas=" + fechas);
+        return fechas;
+    }
+
     public List<LocalTime> listarHorarios(
             Audiencia audiencia,
             Sala sala,
@@ -56,11 +76,7 @@ public class PlanificacionAudienciaService {
         if (sala == null) {
             throw new IllegalArgumentException("La sala es obligatoria.");
         }
-        if (participantes == null || participantes.isEmpty()) {
-            throw new IllegalArgumentException(
-                    "Debe seleccionar al menos un participante."
-            );
-        }
+        validarParticipantesObligatorios(participantes);
 
         List<DisponibilidadSala> disponibilidades =
                 disponibilidadSalaDAO.buscarPorFechaYSalas(
@@ -141,6 +157,32 @@ public class PlanificacionAudienciaService {
             }
         }
         return true;
+    }
+
+    private void validarParticipantesObligatorios(
+            List<Participante> participantes) {
+        if (participantes == null || participantes.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Debe seleccionar al menos un participante."
+            );
+        }
+
+        Set<String> tiposSeleccionados = participantes.stream()
+                .map(Participante::getTipoParticipante)
+                .map(String::toUpperCase)
+                .collect(java.util.stream.Collectors.toSet());
+        List<String> tiposFaltantes = List.of(
+                "JUEZ", "FISCAL", "DEFENSOR", "IMPUTADO"
+        ).stream()
+                .filter(tipo -> !tiposSeleccionados.contains(tipo))
+                .toList();
+        if (!tiposFaltantes.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Debe seleccionar al menos un JUEZ, FISCAL, DEFENSOR "
+                            + "e IMPUTADO. Faltan: "
+                            + String.join(", ", tiposFaltantes) + "."
+            );
+        }
     }
 
     private void validarFecha(

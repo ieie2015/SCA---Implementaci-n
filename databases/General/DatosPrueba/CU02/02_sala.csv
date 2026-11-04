@@ -1,6 +1,7 @@
 idSALA,CODIGO,NOMBRE,UBICACION,CAPACIDAD,ACTIVA,idTIPO_SALA
-101,S-101,Sala Central,Edificio Judicial - Piso 1,20,1,101
-102,S-102,Sala Norte,Edificio Judicial - Piso 1,12,1,101
-103,S-103,Sala Virtual 1,Centro de Comunicaciones,50,1,102
-104,S-104,Sala Especial,Edificio Judicial - Piso 2,40,1,103
-105,S-105,Sala Inactiva,Edificio Judicial - Piso 2,20,0,101
+201,S-201,Sala Central 201,Edificio Judicial - Piso 1,20,1,201
+202,S-202,Sala Norte 202,Edificio Judicial - Piso 1,20,1,201
+203,S-203,Sala Sur 203,Edificio Judicial - Piso 2,30,1,201
+204,S-204,Sala Virtual 204,Centro de Comunicaciones,50,1,202
+205,S-205,Sala Especial 205,Edificio Judicial - Piso 3,60,1,203
+206,S-206,Sala Inactiva 206,Edificio Judicial - Piso 3,20,0,201

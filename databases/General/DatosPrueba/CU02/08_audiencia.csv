@@ -1,5 +1,7 @@
 idAUDIENCIA,idSOLICITUD_AGENDAMIENTO,idTIPO_AUDIENCIA,idESTADO_AUDIENCIA,idSALA,NRO_AUDIENCIA,FECHA_CREACION,FECHA_PROGRAMACION,HORA_INICIO,DURACION_ESTIMADA,OBSERVACIONES
-9101,1,101,101,,9101,2026-11-01 09:00:00,,,60,Audiencia pendiente para probar seleccion de fecha y sala
-9102,1,101,102,101,9102,2026-11-01 09:05:00,2026-11-10,09:00:00,60,Audiencia programada de prueba
-9103,1,102,103,101,9103,2026-11-01 09:10:00,2026-11-11,10:00:00,90,Audiencia confirmada de prueba
-9104,1,103,105,,9104,2026-11-01 09:15:00,,,60,Audiencia cancelada de prueba
+9201,201,201,201,,9201,2026-11-01 09:00:00,,,60,Audiencia pendiente con disponibilidad completa
+9202,202,202,201,,9202,2026-11-01 09:05:00,,,90,Audiencia pendiente de 90 minutos
+9203,203,203,201,,9203,2026-11-01 09:10:00,,,60,Audiencia remota pendiente
+9204,204,204,201,,9204,2026-11-01 09:15:00,,,120,Audiencia compleja pendiente
+9210,205,201,202,201,9210,2026-11-01 09:20:00,2026-11-10,09:00:00,60,Audiencia programada de referencia
+9211,206,202,203,202,9211,2026-11-01 09:25:00,2026-11-11,10:00:00,90,Audiencia confirmada de referencia

@@ -10,7 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class SalaDAO {
 
@@ -38,17 +40,62 @@ public class SalaDAO {
                 """;
         List<Sala> salas = new ArrayList<>();
 
-        try (Connection con = ConexionBD.conectar();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setLong(1, idTipoAudiencia);
-            ps.setObject(2, fecha);
-            try (ResultSet rs = ps.executeQuery()) {
+                System.out.println(
+                        "[CU02][SalaDAO] Consultando disponibilidad de salas. "
+                                + "idTipoAudiencia=" + idTipoAudiencia
+                                + ", fecha=" + fecha);
+                try (Connection con = ConexionBD.conectar();
+                     PreparedStatement ps = con.prepareStatement(sql)) {
+                    ps.setLong(1, idTipoAudiencia);
+                    ps.setObject(2, fecha);
+                    try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     salas.add(mapear(rs));
                 }
             }
         }
+        System.out.println(
+                "[CU02][SalaDAO] Resultado para fecha " + fecha
+                        + ": " + salas.size() + " sala(s) disponible(s)"
+                        + (salas.isEmpty() ? " []" : " " + salas));
         return salas;
+    }
+
+    public Set<LocalDate> listarFechasDisponibles(
+            long idTipoAudiencia) throws SQLException {
+        String sql = """
+                SELECT DISTINCT ds.FECHA
+                  FROM DISPONIBILIDAD_SALA ds
+                  JOIN SALA s ON s.idSALA = ds.SALA_idSALA
+                  JOIN TIPO_AUDIENCIA ta
+                    ON ta.idTIPO_SALA = s.idTIPO_SALA
+                  JOIN TIPO_SALA ts
+                    ON ts.idTIPO_SALA = s.idTIPO_SALA
+                 WHERE ta.idTIPO_AUDIENCIA = ?
+                   AND s.ACTIVA = 1
+                   AND ts.ACTIVA = 1
+                   AND ds.ESTADO = 'DISPONIBLE'
+                   AND ds.FECHA >= CURRENT_DATE()
+                 ORDER BY ds.FECHA
+                """;
+        Set<LocalDate> fechas = new HashSet<>();
+
+        System.out.println(
+                "[CU02][SalaDAO] Consultando fechas disponibles. "
+                        + "idTipoAudiencia=" + idTipoAudiencia);
+        try (Connection con = ConexionBD.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setLong(1, idTipoAudiencia);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    fechas.add(rs.getDate("FECHA").toLocalDate());
+                }
+            }
+        }
+        System.out.println(
+                "[CU02][SalaDAO] Fechas devueltas por la consulta: "
+                        + fechas);
+        return fechas;
     }
 
     public boolean guardar(Sala sala) {

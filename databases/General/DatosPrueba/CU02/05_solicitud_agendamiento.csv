@@ -1,8 +1,9 @@
 idSOLICITUD_AGENDAMIENTO,idTIPO_AUDIENCIA,NRO_SOLICITUD,CUIJ,CARATULA,ESTADO,PRIORIDAD,OBSERVACIONES
-101,101,9101,26000101,Ministerio Publico c/ Gonzalez,PENDIENTE,URGENTE,Solicitud pendiente para crear audiencia de 60 minutos
-102,102,9102,26000102,Ministerio Publico c/ Ramirez,PENDIENTE,ALTA,Solicitud pendiente para audiencia de 90 minutos
-103,103,9103,26000103,Ministerio Publico c/ Benitez,PENDIENTE,MEDIA,Solicitud pendiente para audiencia remota
-104,104,9104,26000104,Ministerio Publico c/ Sosa,PENDIENTE,BAJA,Solicitud pendiente para audiencia de alta complejidad
-105,101,9105,26000105,Ministerio Publico c/ Molina,PROCESADA,ALTA,Solicitud ya procesada por CU01
-106,102,9106,26000106,Ministerio Publico c/ Navarro,OBSERVADA,MEDIA,Falta documentacion para continuar
-107,101,9107,26000107,Ministerio Publico c/ Pereyra,RECHAZADA,BAJA,Solicitud rechazada durante la revision
+201,201,9201,26002001,Ministerio Publico c/ Gonzalez,PENDIENTE,URGENTE,Solicitud pendiente para CU02
+202,202,9202,26002002,Ministerio Publico c/ Ramirez,PENDIENTE,ALTA,Solicitud pendiente para CU02
+203,203,9203,26002003,Ministerio Publico c/ Benitez,PENDIENTE,MEDIA,Solicitud pendiente para CU02
+204,204,9204,26002004,Ministerio Publico c/ Sosa,PENDIENTE,BAJA,Solicitud pendiente para CU02
+205,201,9205,26002005,Ministerio Publico c/ Molina,PROCESADA,ALTA,Solicitud ya procesada
+206,202,9206,26002006,Ministerio Publico c/ Navarro,PROCESADA,MEDIA,Solicitud ya procesada
+207,201,9207,26002007,Ministerio Publico c/ Pereyra,OBSERVADA,BAJA,Solicitud observada
+208,203,9208,26002008,Ministerio Publico c/ Acosta,RECHAZADA,BAJA,Solicitud rechazada

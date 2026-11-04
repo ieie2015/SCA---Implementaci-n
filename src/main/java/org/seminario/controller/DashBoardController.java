@@ -69,8 +69,6 @@ import java.util.ResourceBundle;
                                 .getScene()
                                 .getWindow();
 
-                dashboardStage.hide();
-
                 FXMLLoader loader =
                         new FXMLLoader(
                                 getClass().getResource(
@@ -85,11 +83,24 @@ import java.util.ResourceBundle;
                         new Stage();
 
                 ventanaSolicitud.setScene(scene);
+                ventanaSolicitud.setOnCloseRequest(event -> {
+                    System.out.println(
+                            "Cerrando ventana de Solicitud de Agendamiento"
+                    );
+                    dashboardStage.show();
+                });
 
+                dashboardStage.hide();
                 ventanaSolicitud.show();
 
             } catch (Exception e) {
 
+                if (dashboardStage != null) {
+                    dashboardStage.show();
+                }
+                System.err.println(
+                        "Error al abrir SolicitudAgendamiento.fxml"
+                );
                 e.printStackTrace();
 
             }
@@ -103,8 +114,6 @@ import java.util.ResourceBundle;
                                 .getScene()
                                 .getWindow();
 
-                dashboardStage.hide();
-
                 FXMLLoader loader =
                         new FXMLLoader(
                                 getClass().getResource(
@@ -116,8 +125,22 @@ import java.util.ResourceBundle;
                 Stage ventanaAudiencias = new Stage();
                 ventanaAudiencias.setScene(scene);
                 ventanaAudiencias.setTitle("Gestionar Audiencias");
+                ventanaAudiencias.setOnCloseRequest(event -> {
+                    System.out.println(
+                            "Cerrando ventana de Gestion de Audiencias"
+                    );
+                    dashboardStage.show();
+                });
+
+                dashboardStage.hide();
                 ventanaAudiencias.show();
             } catch (IOException e) {
+                if (dashboardStage != null) {
+                    dashboardStage.show();
+                }
+                System.err.println(
+                        "Error al abrir frmGestionAudiencias.fxml"
+                );
                 e.printStackTrace();
             }
         }
