@@ -1,4 +1,4 @@
 idTIPO_SALA,CODIGO,DESCRIPCION,ACTIVA
-101,SALA_AUDIENCIA,Aula para audiencias generales,1
-102,SALA_VIRTUAL,Sala para audiencias remotas,1
-103,SALA_ESPECIAL,Aula de alta capacidad,1
+201,SALA_GENERAL_201,Sala general para audiencias,1
+202,SALA_VIRTUAL_202,Sala virtual para audiencias remotas,1
+203,SALA_ESPECIAL_203,Sala de alta capacidad,1

@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -20,12 +21,14 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Set;
 
 public class GestionAudienciasController {
 
     private final PlanificacionAudienciaService service =
             new PlanificacionAudienciaService();
     private Audiencia audienciaSeleccionada;
+    private Set<LocalDate> fechasConSalas = Set.of();
 
     @FXML private TableView<Audiencia> tvAudiencias;
     @FXML private TableColumn<Audiencia, Long> colNroAudiencia;
@@ -78,6 +81,7 @@ public class GestionAudienciasController {
         cbHora.valueProperty().addListener(
                 (observable, anterior, actual) ->
                         actualizarEstadoProgramar());
+        configurarColoresFechas();
         refrescarTabla();
     }
 
@@ -94,11 +98,47 @@ public class GestionAudienciasController {
                         + " - Duración: "
                         + audiencia.getDuracionEstimada() + " minutos");
         try {
+            fechasConSalas = service.listarFechasConSalas(audiencia);
+            System.out.println(
+                    "[CU02][Controller] Calendario actualizado para audiencia "
+                            + audiencia.getNroAudiencia()
+                            + ": " + fechasConSalas);
+            configurarColoresFechas();
             tvParticipantes.setItems(FXCollections.observableArrayList(
                     service.listarParticipantes()));
         } catch (SQLException e) {
+            System.err.println(
+                    "[CU02][Controller] Error cargando disponibilidad "
+                            + "para audiencia "
+                            + audiencia.getNroAudiencia());
+            e.printStackTrace();
             mostrarErrorBaseDatos("No fue posible cargar los participantes.");
         }
+    }
+
+    private void configurarColoresFechas() {
+        dpFecha.setDayCellFactory(datePicker ->
+                new DateCell() {
+                    @Override
+                    public void updateItem(
+                            LocalDate fecha,
+                            boolean empty) {
+                        super.updateItem(fecha, empty);
+                        if (empty || fecha == null) {
+                            setStyle("");
+                        } else if (fechasConSalas.contains(fecha)) {
+                            setStyle(
+                                    "-fx-background-color: #9ecbff;"
+                                            + "-fx-text-fill: #003366;"
+                            );
+                        } else {
+                            setStyle(
+                                    "-fx-background-color: #ffc7c7;"
+                                            + "-fx-text-fill: #660000;"
+                            );
+                        }
+                    }
+                });
     }
 
     @FXML
@@ -133,15 +173,20 @@ public class GestionAudienciasController {
         if (sala == null) {
             return;
         }
+        List<Participante> participantes =
+                tvParticipantes.getSelectionModel().getSelectedItems();
         cbHora.getItems().clear();
         cbHora.setDisable(true);
         btnProgramar.setDisable(true);
+        if (participantes.isEmpty()) {
+            return;
+        }
         try {
             List<LocalTime> horarios = service.listarHorarios(
                     audienciaSeleccionada,
                     sala,
                     dpFecha.getValue(),
-                    tvParticipantes.getSelectionModel().getSelectedItems());
+                    participantes);
             if (horarios.isEmpty()) {
                 mostrarMensaje(Alert.AlertType.INFORMATION,
                         "Sin horarios disponibles",
@@ -152,7 +197,7 @@ public class GestionAudienciasController {
             cbHora.setDisable(false);
         } catch (IllegalArgumentException e) {
             mostrarMensaje(Alert.AlertType.WARNING,
-                    "Datos incompletos", e.getMessage());
+                    "Participantes incompletos", e.getMessage());
         } catch (SQLException e) {
             mostrarErrorBaseDatos("No fue posible consultar los horarios.");
         }

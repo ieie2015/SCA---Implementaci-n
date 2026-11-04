@@ -1,5 +1,5 @@
 idTIPO_AUDIENCIA,idTIPO_SALA,CODIGO,DESCRIPCION,DURACION_REFERENCIA,ACTIVA
-101,101,DEBATE_PRUEBA,Audiencia de debate de prueba,60,1
-102,101,REVISION_MEDIDA,Revision de medida cautelar,90,1
-103,102,AUDIENCIA_REMOTA,Audiencia remota,60,1
-104,103,DEBATE_COMPLEJO,Debate de alta complejidad,120,1
+201,201,DEBATE_GENERAL_201,Debate general de prueba,60,1
+202,201,REVISION_MEDIDA_202,Revision de medida cautelar,90,1
+203,202,AUDIENCIA_REMOTA_203,Audiencia remota,60,1
+204,203,DEBATE_COMPLEJO_204,Debate de alta complejidad,120,1
