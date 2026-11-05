@@ -1,18 +1,23 @@
 package org.seminario.controller;
 
 import javafx.collections.FXCollections;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.seminario.model.Audiencia;
+import org.seminario.model.EstadoAudiencia;
 import org.seminario.model.Participante;
 import org.seminario.model.Sala;
 import org.seminario.service.PlanificacionAudienciaService;
@@ -20,6 +25,8 @@ import org.seminario.service.PlanificacionAudienciaService;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -29,6 +36,9 @@ public class GestionAudienciasController {
             new PlanificacionAudienciaService();
     private Audiencia audienciaSeleccionada;
     private Set<LocalDate> fechasConSalas = Set.of();
+    private final Set<Integer> participantesSeleccionados = new HashSet<>();
+    private final List<Audiencia> programadasDuranteSesion =
+            new ArrayList<>();
 
     @FXML private TableView<Audiencia> tvAudiencias;
     @FXML private TableColumn<Audiencia, Long> colNroAudiencia;
@@ -45,6 +55,7 @@ public class GestionAudienciasController {
     @FXML private TableColumn<Participante, String> colTipoParticipante;
     @FXML private TableColumn<Participante, String> colNombreParticipante;
     @FXML private TableColumn<Participante, String> colDocumentoParticipante;
+    @FXML private TableColumn<Participante, Participante> colSeleccionar;
 
     @FXML
     public void initialize() {
@@ -64,20 +75,43 @@ public class GestionAudienciasController {
                 new PropertyValueFactory<>("nombreCompleto"));
         colDocumentoParticipante.setCellValueFactory(
                 new PropertyValueFactory<>("dni"));
+        colSeleccionar.setCellValueFactory(
+                cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue()));
+        colSeleccionar.setCellFactory(column -> new CheckBoxTableCell());
+        tvParticipantes.setRowFactory(table -> new TableRow<>() {
+            @Override
+            protected void updateItem(Participante participante, boolean empty) {
+                super.updateItem(participante, empty);
+                if (empty || participante == null) {
+                    setStyle("");
+                } else if (participantesSeleccionados.contains(
+                        participante.getIdParticipante())) {
+                    setStyle("-fx-background-color: #b7e4c7;"
+                            + "-fx-text-fill: #1b4332;");
+                } else {
+                    setStyle("");
+                }
+            }
+        });
+        tvAudiencias.setRowFactory(table -> new TableRow<>() {
+            @Override
+            protected void updateItem(Audiencia audiencia, boolean empty) {
+                super.updateItem(audiencia, empty);
+                if (empty || audiencia == null) {
+                    setStyle("");
+                } else if (audiencia.getEstado()
+                        == EstadoAudiencia.PROGRAMADA) {
+                    setStyle("-fx-background-color: #b7e4c7;"
+                            + "-fx-text-fill: #1b4332;");
+                } else {
+                    setStyle("");
+                }
+            }
+        });
 
         tvAudiencias.getSelectionModel().selectedItemProperty()
                 .addListener((observable, anterior, actual) ->
                         seleccionarAudiencia(actual));
-        tvParticipantes.getSelectionModel().setSelectionMode(
-                javafx.scene.control.SelectionMode.MULTIPLE);
-        tvParticipantes.getSelectionModel().getSelectedItems()
-                .addListener((javafx.collections.ListChangeListener<Participante>)
-                        change -> {
-                            actualizarEstadoProgramar();
-                            if (cbSala.getValue() != null) {
-                                cargarHorarios();
-                            }
-                        });
         cbHora.valueProperty().addListener(
                 (observable, anterior, actual) ->
                         actualizarEstadoProgramar());
@@ -97,6 +131,9 @@ public class GestionAudienciasController {
                 "Audiencia " + audiencia.getNroAudiencia()
                         + " - Duración: "
                         + audiencia.getDuracionEstimada() + " minutos");
+        if (audiencia.getEstado() != EstadoAudiencia.PENDIENTE_PLANIFICACION) {
+            return;
+        }
         try {
             fechasConSalas = service.listarFechasConSalas(audiencia);
             System.out.println(
@@ -104,8 +141,7 @@ public class GestionAudienciasController {
                             + audiencia.getNroAudiencia()
                             + ": " + fechasConSalas);
             configurarColoresFechas();
-            tvParticipantes.setItems(FXCollections.observableArrayList(
-                    service.listarParticipantes()));
+            tvParticipantes.getItems().clear();
         } catch (SQLException e) {
             System.err.println(
                     "[CU02][Controller] Error cargando disponibilidad "
@@ -148,6 +184,9 @@ public class GestionAudienciasController {
         }
         limpiarOpcionesDependientes();
         try {
+            participantesSeleccionados.clear();
+            tvParticipantes.setItems(FXCollections.observableArrayList(
+                    service.listarParticipantesDisponibles(dpFecha.getValue())));
             List<Sala> salas = service.listarSalas(
                     audienciaSeleccionada,
                     dpFecha.getValue());
@@ -174,11 +213,11 @@ public class GestionAudienciasController {
             return;
         }
         List<Participante> participantes =
-                tvParticipantes.getSelectionModel().getSelectedItems();
+                participantesSeleccionados();
         cbHora.getItems().clear();
         cbHora.setDisable(true);
         btnProgramar.setDisable(true);
-        if (participantes.isEmpty()) {
+        if (!tieneRolesObligatorios(participantes)) {
             return;
         }
         try {
@@ -211,13 +250,19 @@ public class GestionAudienciasController {
                     dpFecha.getValue(),
                     cbSala.getValue(),
                     cbHora.getValue(),
-                    tvParticipantes.getSelectionModel().getSelectedItems());
+                    participantesSeleccionados());
             if (!programada) {
                 mostrarMensaje(Alert.AlertType.ERROR,
                         "No se pudo programar",
                         "La audiencia no fue modificada.");
                 return;
             }
+            audienciaSeleccionada.setIdSala(cbSala.getValue().getIdSala());
+            audienciaSeleccionada.setFechaProgramacion(dpFecha.getValue());
+            audienciaSeleccionada.setHoraInicio(cbHora.getValue());
+            audienciaSeleccionada.setEstado(EstadoAudiencia.PROGRAMADA);
+            programadasDuranteSesion.add(audienciaSeleccionada);
+            tvAudiencias.refresh();
             mostrarMensaje(Alert.AlertType.INFORMATION,
                     "Audiencia programada",
                     "La audiencia fue programada correctamente.");
@@ -233,7 +278,10 @@ public class GestionAudienciasController {
 
     private void refrescarTabla() {
         try {
-            List<Audiencia> audiencias = service.listarPendientes();
+            List<Audiencia> audienciasPendientes = service.listarPendientes();
+            List<Audiencia> audiencias = new ArrayList<>(
+                    programadasDuranteSesion);
+            audiencias.addAll(audienciasPendientes);
             tvAudiencias.setItems(FXCollections.observableArrayList(audiencias));
             if (audiencias.isEmpty()) {
                 lblAudienciaSeleccionada.setText(
@@ -260,7 +308,9 @@ public class GestionAudienciasController {
     private void limpiarPlanificacion() {
         dpFecha.setValue(null);
         limpiarOpcionesDependientes();
-        tvParticipantes.getSelectionModel().clearSelection();
+        participantesSeleccionados.clear();
+        tvParticipantes.getItems().clear();
+        tvParticipantes.refresh();
     }
 
     private void actualizarEstadoProgramar() {
@@ -269,8 +319,69 @@ public class GestionAudienciasController {
                         || dpFecha.getValue() == null
                         || cbSala.getValue() == null
                         || cbHora.getValue() == null
-                        || tvParticipantes.getSelectionModel()
-                        .getSelectedItems().isEmpty());
+                        || participantesSeleccionados().isEmpty());
+    }
+
+    private List<Participante> participantesSeleccionados() {
+        List<Participante> seleccionados = new ArrayList<>();
+        for (Participante participante : tvParticipantes.getItems()) {
+            if (participantesSeleccionados.contains(
+                            participante.getIdParticipante())) {
+                        seleccionados.add(participante);
+            }
+        }
+        return seleccionados;
+    }
+
+    private boolean tieneRolesObligatorios(
+            List<Participante> participantes) {
+        Set<String> tipos = new HashSet<>();
+        for (Participante participante : participantes) {
+            tipos.add(participante.getTipoParticipante().toUpperCase());
+        }
+        return tipos.contains("JUEZ")
+                && tipos.contains("FISCAL")
+                && tipos.contains("DEFENSOR")
+                && tipos.contains("IMPUTADO");
+    }
+
+    private final class CheckBoxTableCell
+            extends TableCell<Participante, Participante> {
+        private final CheckBox checkBox = new CheckBox();
+
+        private CheckBoxTableCell() {
+            checkBox.setOnAction(event -> {
+                        Participante participante = getTableRow().getItem();
+                        if (participante == null) {
+                            return;
+                        }
+                        int id = participante.getIdParticipante();
+                        if (checkBox.isSelected()) {
+                            participantesSeleccionados.add(id);
+                        } else {
+                            participantesSeleccionados.remove(id);
+                        }
+                        tvParticipantes.refresh();
+                        actualizarEstadoProgramar();
+                        if (cbSala.getValue() != null) {
+                            cargarHorarios();
+                        }
+            });
+        }
+
+        @Override
+        protected void updateItem(
+                        Participante participante,
+                        boolean empty) {
+            super.updateItem(participante, empty);
+            if (empty || participante == null) {
+                        setGraphic(null);
+            } else {
+                        checkBox.setSelected(participantesSeleccionados.contains(
+                                participante.getIdParticipante()));
+                        setGraphic(checkBox);
+            }
+        }
     }
 
     private void mostrarErrorBaseDatos(String mensaje) {

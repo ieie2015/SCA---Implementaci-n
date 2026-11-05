@@ -1,7 +1,6 @@
 # Datos de prueba del CU02
 
-Estos archivos están preparados para importarse desde DBeaver CE usando
-UTF-8, separador `,` y la primera fila como encabezado.
+Estos archivos están preparados para importarse desde DBeaver CE usando UTF-8, separador `,` y la primera fila como encabezado.
 
 Importar en este orden:
 
@@ -17,19 +16,8 @@ Importar en este orden:
 10. `08_audiencia.csv`
 11. `09_audiencia_participante.csv`
 
-Los identificadores desde 201 fueron reservados para estos datos de prueba.
-Este conjunto es autoconsistente: las claves foráneas de todos los archivos
-apuntan a registros definidos dentro del mismo conjunto.
-Las audiencias `9201` a `9204` quedan pendientes para probar CU02.
-Las audiencias `9210` y `9211` son referencias ya programadas o confirmadas.
+Los identificadores desde 201 fueron reservados para estos datos de prueba. El conjunto es autoconsistente: las claves foráneas apuntan a registros definidos dentro del mismo conjunto.
 
-Escenarios incluidos:
+Se generaron datos para días hábiles desde el 05/11/2026 hasta el 31/12/2026, con 36 solicitudes y 30 audiencias pendientes de planificación. Las disponibilidades incluyen jornadas completas y franjas parciales para probar la intersección de horarios, además de salas en mantenimiento u ocupadas.
 
-- Sala 101 disponible durante toda la jornada.
-- Sala 102 disponible solo durante la mañana.
-- Sala 103 fuera de servicio.
-- Sala 104 con mantenimiento en una franja.
-- Cuatro roles obligatorios disponibles: JUEZ, FISCAL, DEFENSOR e IMPUTADO.
-- Participantes con disponibilidad completa y parcial.
-- Audiencias pendiente, programada, confirmada y cancelada.
-- Un intervalo que permite validar conflictos con una audiencia programada.
+Para reimportar el conjunto completo sobre una base que ya contiene estos identificadores, eliminar primero los registros anteriores de CU02 respetando el orden inverso de las claves foráneas, o importar en una base limpia.

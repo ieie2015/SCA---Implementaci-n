@@ -1,7 +1,37 @@
 idAUDIENCIA,idSOLICITUD_AGENDAMIENTO,idTIPO_AUDIENCIA,idESTADO_AUDIENCIA,idSALA,NRO_AUDIENCIA,FECHA_CREACION,FECHA_PROGRAMACION,HORA_INICIO,DURACION_ESTIMADA,OBSERVACIONES
-9201,201,201,201,,9201,2026-11-01 09:00:00,,,60,Audiencia pendiente con disponibilidad completa
-9202,202,202,201,,9202,2026-11-01 09:05:00,,,90,Audiencia pendiente de 90 minutos
-9203,203,203,201,,9203,2026-11-01 09:10:00,,,60,Audiencia remota pendiente
-9204,204,204,201,,9204,2026-11-01 09:15:00,,,120,Audiencia compleja pendiente
-9210,205,201,202,201,9210,2026-11-01 09:20:00,2026-11-10,09:00:00,60,Audiencia programada de referencia
-9211,206,202,203,202,9211,2026-11-01 09:25:00,2026-11-11,10:00:00,90,Audiencia confirmada de referencia
+9201,201,201,201,,9201,2026-11-01 09:00:00,,,60,Audiencia pendiente de planificacion
+9202,202,202,201,,9202,2026-11-02 10:00:00,,,90,Audiencia pendiente de planificacion
+9203,203,203,201,,9203,2026-11-03 11:00:00,,,60,Audiencia pendiente de planificacion
+9204,204,204,201,,9204,2026-11-04 12:00:00,,,120,Audiencia pendiente de planificacion
+9205,205,201,201,,9205,2026-11-05 13:00:00,,,60,Audiencia pendiente de planificacion
+9206,206,202,201,,9206,2026-11-01 14:00:00,,,90,Audiencia pendiente de planificacion
+9207,207,203,201,,9207,2026-11-02 15:00:00,,,60,Audiencia pendiente de planificacion
+9208,208,204,201,,9208,2026-11-03 16:00:00,,,120,Audiencia pendiente de planificacion
+9209,209,201,201,,9209,2026-11-04 09:00:00,,,60,Audiencia pendiente de planificacion
+9210,210,202,201,,9210,2026-11-05 10:00:00,,,90,Audiencia pendiente de planificacion
+9211,211,203,201,,9211,2026-11-01 11:00:00,,,60,Audiencia pendiente de planificacion
+9212,212,204,201,,9212,2026-11-02 12:00:00,,,120,Audiencia pendiente de planificacion
+9213,213,201,201,,9213,2026-11-03 13:00:00,,,60,Audiencia pendiente de planificacion
+9214,214,202,201,,9214,2026-11-04 14:00:00,,,90,Audiencia pendiente de planificacion
+9215,215,203,201,,9215,2026-11-05 15:00:00,,,60,Audiencia pendiente de planificacion
+9216,216,204,201,,9216,2026-11-01 16:00:00,,,120,Audiencia pendiente de planificacion
+9217,217,201,201,,9217,2026-11-02 09:00:00,,,60,Audiencia pendiente de planificacion
+9218,218,202,201,,9218,2026-11-03 10:00:00,,,90,Audiencia pendiente de planificacion
+9219,219,203,201,,9219,2026-11-04 11:00:00,,,60,Audiencia pendiente de planificacion
+9220,220,204,201,,9220,2026-11-05 12:00:00,,,120,Audiencia pendiente de planificacion
+9221,221,201,201,,9221,2026-11-01 13:00:00,,,60,Audiencia pendiente de planificacion
+9222,222,202,201,,9222,2026-11-02 14:00:00,,,90,Audiencia pendiente de planificacion
+9223,223,203,201,,9223,2026-11-03 15:00:00,,,60,Audiencia pendiente de planificacion
+9224,224,204,201,,9224,2026-11-04 16:00:00,,,120,Audiencia pendiente de planificacion
+9225,225,201,201,,9225,2026-11-05 09:00:00,,,60,Audiencia pendiente de planificacion
+9226,226,202,201,,9226,2026-11-01 10:00:00,,,90,Audiencia pendiente de planificacion
+9227,227,203,201,,9227,2026-11-02 11:00:00,,,60,Audiencia pendiente de planificacion
+9228,228,204,201,,9228,2026-11-03 12:00:00,,,120,Audiencia pendiente de planificacion
+9229,229,201,201,,9229,2026-11-04 13:00:00,,,60,Audiencia pendiente de planificacion
+9230,230,202,201,,9230,2026-11-05 14:00:00,,,90,Audiencia pendiente de planificacion
+9231,231,203,202,203,9231,2026-11-01 15:00:00,2026-11-10,09:00:00,60,Audiencia de referencia ya programada
+9232,232,204,203,204,9232,2026-11-02 16:00:00,2026-11-11,09:00:00,120,Audiencia de referencia ya programada
+9233,233,201,202,201,9233,2026-11-03 09:00:00,2026-11-12,09:00:00,60,Audiencia de referencia ya programada
+9234,234,202,203,202,9234,2026-11-04 10:00:00,2026-11-13,09:00:00,90,Audiencia de referencia ya programada
+9235,235,203,202,203,9235,2026-11-05 11:00:00,2026-11-14,09:00:00,60,Audiencia de referencia ya programada
+9236,236,204,203,204,9236,2026-11-01 12:00:00,2026-11-15,09:00:00,120,Audiencia de referencia ya programada

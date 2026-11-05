@@ -38,6 +38,15 @@ public class PlanificacionAudienciaService {
         return participanteDAO.listarTodos();
     }
 
+    public List<Participante> listarParticipantesDisponibles(
+            LocalDate fecha) throws SQLException {
+        if (fecha == null) {
+            throw new IllegalArgumentException(
+                    "Debe seleccionar una fecha.");
+        }
+        return participanteDAO.listarDisponiblesPorFecha(fecha);
+    }
+
     public List<Sala> listarSalas(
             Audiencia audiencia,
             LocalDate fecha) throws SQLException {
@@ -179,7 +188,8 @@ public class PlanificacionAudienciaService {
         if (!tiposFaltantes.isEmpty()) {
             throw new IllegalArgumentException(
                     "Debe seleccionar al menos un JUEZ, FISCAL, DEFENSOR "
-                            + "e IMPUTADO. Faltan: "
+                            + "e IMPUTADO. "
+                            + "Faltan: "
                             + String.join(", ", tiposFaltantes) + "."
             );
         }

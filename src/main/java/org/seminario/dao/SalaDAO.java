@@ -78,6 +78,7 @@ public class SalaDAO {
                    AND ds.FECHA >= CURRENT_DATE()
                  ORDER BY ds.FECHA
                 """;
+
         Set<LocalDate> fechas = new HashSet<>();
 
         System.out.println(

@@ -1,9 +1,37 @@
 idSOLICITUD_AGENDAMIENTO,idTIPO_AUDIENCIA,NRO_SOLICITUD,CUIJ,CARATULA,ESTADO,PRIORIDAD,OBSERVACIONES
-201,201,9201,26002001,Ministerio Publico c/ Gonzalez,PENDIENTE,URGENTE,Solicitud pendiente para CU02
-202,202,9202,26002002,Ministerio Publico c/ Ramirez,PENDIENTE,ALTA,Solicitud pendiente para CU02
-203,203,9203,26002003,Ministerio Publico c/ Benitez,PENDIENTE,MEDIA,Solicitud pendiente para CU02
-204,204,9204,26002004,Ministerio Publico c/ Sosa,PENDIENTE,BAJA,Solicitud pendiente para CU02
-205,201,9205,26002005,Ministerio Publico c/ Molina,PROCESADA,ALTA,Solicitud ya procesada
-206,202,9206,26002006,Ministerio Publico c/ Navarro,PROCESADA,MEDIA,Solicitud ya procesada
-207,201,9207,26002007,Ministerio Publico c/ Pereyra,OBSERVADA,BAJA,Solicitud observada
-208,203,9208,26002008,Ministerio Publico c/ Acosta,RECHAZADA,BAJA,Solicitud rechazada
+201,201,9201,26002001,Ministerio Publico c/ Caso 01,PENDIENTE,URGENTE,Solicitud de prueba para CU02
+202,202,9202,26002002,Ministerio Publico c/ Caso 02,PENDIENTE,ALTA,Solicitud de prueba para CU02
+203,203,9203,26002003,Ministerio Publico c/ Caso 03,PENDIENTE,MEDIA,Solicitud de prueba para CU02
+204,204,9204,26002004,Ministerio Publico c/ Caso 04,PENDIENTE,BAJA,Solicitud de prueba para CU02
+205,201,9205,26002005,Ministerio Publico c/ Caso 05,PENDIENTE,URGENTE,Solicitud de prueba para CU02
+206,202,9206,26002006,Ministerio Publico c/ Caso 06,PENDIENTE,ALTA,Solicitud de prueba para CU02
+207,203,9207,26002007,Ministerio Publico c/ Caso 07,PENDIENTE,MEDIA,Solicitud de prueba para CU02
+208,204,9208,26002008,Ministerio Publico c/ Caso 08,PENDIENTE,BAJA,Solicitud de prueba para CU02
+209,201,9209,26002009,Ministerio Publico c/ Caso 09,PENDIENTE,URGENTE,Solicitud de prueba para CU02
+210,202,9210,26002010,Ministerio Publico c/ Caso 10,PENDIENTE,ALTA,Solicitud de prueba para CU02
+211,203,9211,26002011,Ministerio Publico c/ Caso 11,PENDIENTE,MEDIA,Solicitud de prueba para CU02
+212,204,9212,26002012,Ministerio Publico c/ Caso 12,PENDIENTE,BAJA,Solicitud de prueba para CU02
+213,201,9213,26002013,Ministerio Publico c/ Caso 13,PENDIENTE,URGENTE,Solicitud de prueba para CU02
+214,202,9214,26002014,Ministerio Publico c/ Caso 14,PENDIENTE,ALTA,Solicitud de prueba para CU02
+215,203,9215,26002015,Ministerio Publico c/ Caso 15,PENDIENTE,MEDIA,Solicitud de prueba para CU02
+216,204,9216,26002016,Ministerio Publico c/ Caso 16,PENDIENTE,BAJA,Solicitud de prueba para CU02
+217,201,9217,26002017,Ministerio Publico c/ Caso 17,PENDIENTE,URGENTE,Solicitud de prueba para CU02
+218,202,9218,26002018,Ministerio Publico c/ Caso 18,PENDIENTE,ALTA,Solicitud de prueba para CU02
+219,203,9219,26002019,Ministerio Publico c/ Caso 19,PENDIENTE,MEDIA,Solicitud de prueba para CU02
+220,204,9220,26002020,Ministerio Publico c/ Caso 20,PENDIENTE,BAJA,Solicitud de prueba para CU02
+221,201,9221,26002021,Ministerio Publico c/ Caso 21,PENDIENTE,URGENTE,Solicitud de prueba para CU02
+222,202,9222,26002022,Ministerio Publico c/ Caso 22,PENDIENTE,ALTA,Solicitud de prueba para CU02
+223,203,9223,26002023,Ministerio Publico c/ Caso 23,PENDIENTE,MEDIA,Solicitud de prueba para CU02
+224,204,9224,26002024,Ministerio Publico c/ Caso 24,PENDIENTE,BAJA,Solicitud de prueba para CU02
+225,201,9225,26002025,Ministerio Publico c/ Caso 25,PENDIENTE,URGENTE,Solicitud de prueba para CU02
+226,202,9226,26002026,Ministerio Publico c/ Caso 26,PENDIENTE,ALTA,Solicitud de prueba para CU02
+227,203,9227,26002027,Ministerio Publico c/ Caso 27,PENDIENTE,MEDIA,Solicitud de prueba para CU02
+228,204,9228,26002028,Ministerio Publico c/ Caso 28,PENDIENTE,BAJA,Solicitud de prueba para CU02
+229,201,9229,26002029,Ministerio Publico c/ Caso 29,PENDIENTE,URGENTE,Solicitud de prueba para CU02
+230,202,9230,26002030,Ministerio Publico c/ Caso 30,PENDIENTE,ALTA,Solicitud de prueba para CU02
+231,203,9231,26002031,Ministerio Publico c/ Caso 31,PROCESADA,MEDIA,Solicitud de prueba para CU02
+232,204,9232,26002032,Ministerio Publico c/ Caso 32,PROCESADA,BAJA,Solicitud de prueba para CU02
+233,201,9233,26002033,Ministerio Publico c/ Caso 33,PROCESADA,URGENTE,Solicitud de prueba para CU02
+234,202,9234,26002034,Ministerio Publico c/ Caso 34,PROCESADA,ALTA,Solicitud de prueba para CU02
+235,203,9235,26002035,Ministerio Publico c/ Caso 35,OBSERVADA,MEDIA,Solicitud de prueba para CU02
+236,204,9236,26002036,Ministerio Publico c/ Caso 36,OBSERVADA,BAJA,Solicitud de prueba para CU02

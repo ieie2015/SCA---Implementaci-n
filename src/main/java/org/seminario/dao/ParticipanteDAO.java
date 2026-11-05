@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,36 @@ public class ParticipanteDAO {
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 participantes.add(mapear(rs));
+            }
+        }
+        return participantes;
+    }
+
+    public List<Participante> listarDisponiblesPorFecha(
+            LocalDate fecha) throws SQLException {
+        String sql = """
+                SELECT DISTINCT p.idPARTICIPANTE, p.idTIPO_PARTICIPANTE,
+                       p.NOMBRE, p.APELLIDO, p.DOMICILIO,
+                       p.TELEFONO, p.EMAIL, p.DNI,
+                       tp.CODIGO AS TIPO_CODIGO
+                  FROM PARTICIPANTE p
+                  JOIN TIPO_PARTICIPANTE tp
+                    ON tp.idTIPO_PARTICIPANTE = p.idTIPO_PARTICIPANTE
+                  JOIN DISPONIBILIDAD_PARTICIPANTE dp
+                    ON dp.PARTICIPANTE_idPARTICIPANTE = p.idPARTICIPANTE
+                 WHERE dp.FECHA = ?
+                   AND dp.ESTADO = 'DISPONIBLE'
+                 ORDER BY p.APELLIDO, p.NOMBRE
+                """;
+        List<Participante> participantes = new ArrayList<>();
+
+        try (Connection con = ConexionBD.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setObject(1, fecha);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    participantes.add(mapear(rs));
+                }
             }
         }
         return participantes;
