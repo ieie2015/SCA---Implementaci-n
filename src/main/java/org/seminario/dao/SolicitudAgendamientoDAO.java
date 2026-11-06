@@ -65,6 +65,14 @@ public class SolicitudAgendamientoDAO {
             Long cuij,
             Long nroSolicitud) {
 
+        System.out.println(
+                "[DAO] Iniciando búsqueda de solicitudes. "
+                        + "estado=" + estado
+                        + ", prioridad=" + prioridad
+                        + ", CUIJ=" + cuij
+                        + ", nroSolicitud=" + nroSolicitud
+        );
+
         List<SolicitudAgendamiento> lista =
                 new ArrayList<>();
 
@@ -148,6 +156,15 @@ public class SolicitudAgendamientoDAO {
                         )
 
         ) {
+            System.out.println(
+                    "[DAO] Conexión a la base de datos establecida."
+            );
+            System.out.println(
+                    "[DAO] SQL preparado: " + sql
+            );
+            System.out.println(
+                    "[DAO] Parámetros: " + parametros
+            );
 
             for(int i = 0;
                 i < parametros.size();
@@ -169,8 +186,16 @@ public class SolicitudAgendamientoDAO {
                 );
             }
 
-        } catch(Exception e) {
+            System.out.println(
+                    "[DAO] Registros recuperados: " + lista.size()
+            );
 
+        } catch(SQLException e) {
+
+            System.err.println(
+                    "[DAO] Error SQL al buscar solicitudes: "
+                            + e.getMessage()
+            );
             e.printStackTrace();
         }
 
@@ -178,6 +203,10 @@ public class SolicitudAgendamientoDAO {
     }
 
     public List<SolicitudAgendamiento> listarPendientesSinAudiencia() {
+        System.out.println(
+                "[DAO] Aplicando filtro: estado=PENDIENTE y sin audiencia asociada."
+        );
+
         return buscarConFiltros(
                 EstadoSolicitud.PENDIENTE,
                 null,

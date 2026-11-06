@@ -19,6 +19,11 @@ public class ConexionBD {
     public static Connection conectar()
             throws SQLException {
 
+        System.out.println(
+                "[BD] Intentando conectar a " + URL
+                        + " con el usuario " + USUARIO
+        );
+
         return DriverManager.getConnection(
                 URL,
                 USUARIO,

@@ -79,12 +79,18 @@ public class SolicitudAgendamientoController {
     @FXML
     public void initialize() {
 
-        System.out.println("Controller inicializado");
-        System.out.println(tvSolicitudes);
-        System.out.println(colCuij);
-        System.out.println(colCaratula);
-
-        System.out.println("Controller inicializado");
+        System.out.println(
+                "[PANTALLA SOLICITUDES] Inicializando controlador."
+        );
+        System.out.println(
+                "[PANTALLA SOLICITUDES] TableView: " + tvSolicitudes
+        );
+        System.out.println(
+                "[PANTALLA SOLICITUDES] Columnas principales: CUIJ="
+                        + colCuij
+                        + ", carátula="
+                        + colCaratula
+        );
 
         colNroSolicitud.setCellValueFactory(new PropertyValueFactory<>("nroSolicitud"));
 
@@ -107,6 +113,11 @@ public class SolicitudAgendamientoController {
                          solicitudSeleccionada) -> {
 
                             if (solicitudSeleccionada != null) {
+
+                                System.out.println(
+                                        "[PANTALLA SOLICITUDES] Solicitud seleccionada: "
+                                                + solicitudSeleccionada
+                                );
 
                                 cargarSolicitudSeleccionada(
                                         solicitudSeleccionada
@@ -136,20 +147,23 @@ public class SolicitudAgendamientoController {
     }
 
     private void refrescarTabla() {
-        tvSolicitudes.setItems(
-                FXCollections.observableArrayList(
-                        service.listarPendientesSinAudiencia()
-                )
+        System.out.println(
+                "[PANTALLA SOLICITUDES] Cargando solicitudes en la tabla."
         );
 
         var lista = service.listarPendientesSinAudiencia();
 
         System.out.println(
-                "Solicitudes recuperadas: "
+                "[PANTALLA SOLICITUDES] Solicitudes recuperadas: "
                         + lista.size()
         );
 
         tvSolicitudes.setItems(FXCollections.observableArrayList(lista));
+
+        System.out.println(
+                "[PANTALLA SOLICITUDES] Filas cargadas en TableView: "
+                        + tvSolicitudes.getItems().size()
+        );
 
     }
 
@@ -322,6 +336,11 @@ public class SolicitudAgendamientoController {
     }
     private void cargarSolicitudSeleccionada(
             SolicitudAgendamiento solicitud) {
+
+        System.out.println(
+                "[PANTALLA SOLICITUDES] Cargando datos en los campos para la solicitud: "
+                        + solicitud.getIdSolicitudAgendamiento()
+        );
 
         txfCuij.setText(
                 String.valueOf(

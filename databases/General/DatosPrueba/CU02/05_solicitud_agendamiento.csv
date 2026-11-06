@@ -35,3 +35,23 @@ idSOLICITUD_AGENDAMIENTO,idTIPO_AUDIENCIA,NRO_SOLICITUD,CUIJ,CARATULA,ESTADO,PRI
 234,202,9234,26002034,Ministerio Publico c/ Caso 34,PROCESADA,ALTA,Solicitud de prueba para CU02
 235,203,9235,26002035,Ministerio Publico c/ Caso 35,OBSERVADA,MEDIA,Solicitud de prueba para CU02
 236,204,9236,26002036,Ministerio Publico c/ Caso 36,OBSERVADA,BAJA,Solicitud de prueba para CU02
+237,201,9237,26002037,Ministerio Publico c/ Caso 37,PENDIENTE,URGENTE,Solicitud nueva para probar el flujo CU01
+238,202,9238,26002038,Ministerio Publico c/ Caso 38,PENDIENTE,ALTA,Solicitud nueva para probar el flujo CU01
+239,203,9239,26002039,Ministerio Publico c/ Caso 39,PENDIENTE,MEDIA,Solicitud nueva para probar el flujo CU01
+240,204,9240,26002040,Ministerio Publico c/ Caso 40,PENDIENTE,BAJA,Solicitud nueva para probar el flujo CU01
+241,201,9241,26002041,Ministerio Publico c/ Caso 41,PENDIENTE,URGENTE,Solicitud nueva para probar el flujo CU01
+242,202,9242,26002042,Ministerio Publico c/ Caso 42,PENDIENTE,ALTA,Solicitud nueva para probar el flujo CU01
+243,203,9243,26002043,Ministerio Publico c/ Caso 43,PENDIENTE,MEDIA,Solicitud nueva para probar el flujo CU01
+244,204,9244,26002044,Ministerio Publico c/ Caso 44,PENDIENTE,BAJA,Solicitud nueva para probar el flujo CU01
+245,201,9245,26002045,Ministerio Publico c/ Caso 45,PENDIENTE,URGENTE,Solicitud nueva para probar el flujo CU01
+246,202,9246,26002046,Ministerio Publico c/ Caso 46,PENDIENTE,ALTA,Solicitud nueva para probar el flujo CU01
+247,203,9247,26002047,Ministerio Publico c/ Caso 47,PENDIENTE,MEDIA,Solicitud nueva para probar el flujo CU01
+248,204,9248,26002048,Ministerio Publico c/ Caso 48,PENDIENTE,BAJA,Solicitud nueva para probar el flujo CU01
+249,201,9249,26002049,Ministerio Publico c/ Caso 49,PENDIENTE,URGENTE,Solicitud nueva para probar el flujo CU01
+250,202,9250,26002050,Ministerio Publico c/ Caso 50,PENDIENTE,ALTA,Solicitud nueva para probar el flujo CU01
+251,203,9251,26002051,Ministerio Publico c/ Caso 51,PENDIENTE,MEDIA,Solicitud nueva para probar el flujo CU01
+252,204,9252,26002052,Ministerio Publico c/ Caso 52,PENDIENTE,BAJA,Solicitud nueva para probar el flujo CU01
+253,201,9253,26002053,Ministerio Publico c/ Caso 53,PENDIENTE,URGENTE,Solicitud nueva para probar el flujo CU01
+254,202,9254,26002054,Ministerio Publico c/ Caso 54,PENDIENTE,ALTA,Solicitud nueva para probar el flujo CU01
+255,203,9255,26002055,Ministerio Publico c/ Caso 55,PENDIENTE,MEDIA,Solicitud nueva para probar el flujo CU01
+256,204,9256,26002056,Ministerio Publico c/ Caso 56,PENDIENTE,BAJA,Solicitud nueva para probar el flujo CU01

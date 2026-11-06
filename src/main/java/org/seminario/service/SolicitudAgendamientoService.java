@@ -31,7 +31,19 @@ public class SolicitudAgendamientoService {
     }
 
     public List<SolicitudAgendamiento> listarPendientesSinAudiencia() {
-        return dao.listarPendientesSinAudiencia();
+        System.out.println(
+                "[SERVICIO] Solicitando solicitudes pendientes sin audiencia asociada."
+        );
+
+        List<SolicitudAgendamiento> solicitudes =
+                dao.listarPendientesSinAudiencia();
+
+        System.out.println(
+                "[SERVICIO] Solicitudes recibidas desde el DAO: "
+                        + solicitudes.size()
+        );
+
+        return solicitudes;
     }
 
     public boolean procesarSolicitud(
