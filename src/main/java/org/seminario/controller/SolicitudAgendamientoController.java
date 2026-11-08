@@ -102,7 +102,15 @@ public class SolicitudAgendamientoController {
 
         colPrioridad.setCellValueFactory(new PropertyValueFactory<>("prioridad"));
 
+        colObservaciones.setCellValueFactory(
+                new PropertyValueFactory<>("observaciones")
+        );
+
         cargarCombos();
+
+        btnAceptar.setDisable(true);
+        btnRechazar.setDisable(true);
+        btnObservar.setDisable(true);
 
         refrescarTabla();
         tvSolicitudes.getSelectionModel()
@@ -111,6 +119,18 @@ public class SolicitudAgendamientoController {
                         (observable,
                          solicitudAnterior,
                          solicitudSeleccionada) -> {
+
+                            boolean haySolicitudSeleccionada =
+                                    solicitudSeleccionada != null;
+                            btnAceptar.setDisable(
+                                    !haySolicitudSeleccionada
+                            );
+                            btnRechazar.setDisable(
+                                    !haySolicitudSeleccionada
+                            );
+                            btnObservar.setDisable(
+                                    !haySolicitudSeleccionada
+                            );
 
                             if (solicitudSeleccionada != null) {
 
@@ -195,19 +215,44 @@ public class SolicitudAgendamientoController {
 
         Long cuij = null;
 
-        if (!txfBuscarcuij.getText().isBlank()) {
-
-            cuij =
-                    Long.parseLong(
-                            txfBuscarcuij.getText()
-                    );
+        String textoCuij = txfBuscarcuij.getText().trim();
+        if (!textoCuij.isEmpty()) {
+            try {
+                cuij = Long.parseLong(textoCuij);
+            } catch (NumberFormatException e) {
+                mostrarMensaje(
+                        Alert.AlertType.WARNING,
+                        "CUIJ inválido",
+                        "Ingrese únicamente un número válido para el CUIJ."
+                );
+                return;
+            }
         }
 
         Long nroSolicitud = null;
 
-        if (!txfNroSolicitud.getText().isBlank()) {
-            nroSolicitud = Long.parseLong(txfNroSolicitud.getText());
+        String textoNroSolicitud = txfNroSolicitud.getText().trim();
+        if (!textoNroSolicitud.isEmpty()) {
+            try {
+                nroSolicitud = Long.parseLong(textoNroSolicitud);
+            } catch (NumberFormatException e) {
+                mostrarMensaje(
+                        Alert.AlertType.WARNING,
+                        "Número de solicitud inválido",
+                        "Ingrese únicamente un número válido para la solicitud."
+                );
+                return;
+            }
         }
+
+        if (estado == null
+                && prioridad == null
+                && cuij == null
+                && nroSolicitud == null) {
+            refrescarTabla();
+            return;
+        }
+
         System.out.println(
                 "Estado = " + estado
         );
@@ -317,9 +362,44 @@ public class SolicitudAgendamientoController {
             return;
         }
 
-        service.observarSolicitud(
+        String observaciones = txfObservaciones.getText().trim();
+        if (observaciones.isEmpty()) {
+            txfObservaciones.requestFocus();
+            mostrarMensaje(
+                    Alert.AlertType.WARNING,
+                    "Observación requerida",
+                    "Debe ingresar una observación antes de observar la solicitud."
+            );
+            return;
+        }
+
+        boolean observacionesActualizadas =
+                service.actualizarObservaciones(
+                        seleccionada.getIdSolicitudAgendamiento(),
+                        observaciones
+                );
+
+        if (!observacionesActualizadas) {
+            mostrarMensaje(
+                    Alert.AlertType.ERROR,
+                    "No se pudo observar la solicitud",
+                    "No fue posible guardar las observaciones."
+            );
+            return;
+        }
+
+        boolean estadoActualizado = service.observarSolicitud(
                 seleccionada.getIdSolicitudAgendamiento()
         );
+
+        if (!estadoActualizado) {
+            mostrarMensaje(
+                    Alert.AlertType.ERROR,
+                    "No se pudo observar la solicitud",
+                    "No fue posible actualizar el estado de la solicitud."
+            );
+            return;
+        }
 
         refrescarTabla();
     }
@@ -354,7 +434,7 @@ public class SolicitudAgendamientoController {
 
         txfTipoAudiencia.setText(String.valueOf(solicitud.getIdtipoAudiencia()));
 
-        txfObservaciones.setText(solicitud.getObservaciones());
+        txfObservaciones.clear();
     }
     @FXML
     private void volverMenuPrincipal() {

@@ -284,6 +284,23 @@ public class SolicitudAgendamientoDAO {
     }
 
     public boolean actualizarObservaciones(long idSolicitud, String observaciones) {
-        return true;
+        String sql =
+                """
+                UPDATE SOLICITUD_AGENDAMIENTO
+                   SET OBSERVACIONES = ?
+                 WHERE idSOLICITUD_AGENDAMIENTO = ?
+                """;
+
+        try (
+                Connection con = ConexionBD.conectar();
+                PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            ps.setString(1, observaciones);
+            ps.setLong(2, idSolicitud);
+            return ps.executeUpdate() == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

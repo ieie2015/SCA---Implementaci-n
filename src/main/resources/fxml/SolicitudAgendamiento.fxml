@@ -96,17 +96,17 @@
             </HBox>
             <HBox prefHeight="23.0" prefWidth="600.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#procesarSolicitud" text="Aceptar">
+                  <Button fx:id="btnAceptar" mnemonicParsing="false" onAction="#procesarSolicitud" text="Aceptar">
                      <HBox.margin>
                         <Insets left="10.0" top="40.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#rechazarSolicitud" text="Rechazar">
+                  <Button fx:id="btnRechazar" mnemonicParsing="false" onAction="#rechazarSolicitud" text="Rechazar">
                      <HBox.margin>
                         <Insets left="10.0" top="40.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#observarSolicitud" text="Observar">
+                  <Button fx:id="btnObservar" mnemonicParsing="false" onAction="#observarSolicitud" text="Observar">
                      <HBox.margin>
                         <Insets left="10.0" top="40.0" />
                      </HBox.margin>
