@@ -37,6 +37,12 @@ public class SolicitudAgendamientoController {
     @FXML
     private TextField txfTipoAudiencia;
 
+    @FXML
+    private TextField txtFecha;
+
+    @FXML
+    private TextField txfHora;
+
     @FXML TextField txfObservaciones;
 
 
@@ -108,9 +114,8 @@ public class SolicitudAgendamientoController {
 
         cargarCombos();
 
-        btnAceptar.setDisable(true);
-        btnRechazar.setDisable(true);
-        btnObservar.setDisable(true);
+        configurarCambioDeFiltros();
+        limpiarSolicitudSeleccionada();
 
         refrescarTabla();
         tvSolicitudes.getSelectionModel()
@@ -120,16 +125,8 @@ public class SolicitudAgendamientoController {
                          solicitudAnterior,
                          solicitudSeleccionada) -> {
 
-                            boolean haySolicitudSeleccionada =
-                                    solicitudSeleccionada != null;
-                            btnAceptar.setDisable(
-                                    !haySolicitudSeleccionada
-                            );
-                            btnRechazar.setDisable(
-                                    !haySolicitudSeleccionada
-                            );
-                            btnObservar.setDisable(
-                                    !haySolicitudSeleccionada
+                            actualizarEstadoBotones(
+                                    solicitudSeleccionada
                             );
 
                             if (solicitudSeleccionada != null) {
@@ -145,6 +142,40 @@ public class SolicitudAgendamientoController {
                             }
                         }
                 );
+    }
+
+    private void configurarCambioDeFiltros() {
+        cbEstado.valueProperty().addListener(
+                (observable, anterior, actual) -> limpiarSolicitudSeleccionada()
+        );
+        cbPrioridad.valueProperty().addListener(
+                (observable, anterior, actual) -> limpiarSolicitudSeleccionada()
+        );
+    }
+
+    private void limpiarSolicitudSeleccionada() {
+        tvSolicitudes.getSelectionModel().clearSelection();
+        txfCuij.clear();
+        txfCaratula.clear();
+        txfTipoAudiencia.clear();
+        txfNroSolicitud.clear();
+        txtFecha.clear();
+        txfHora.clear();
+        txfObservaciones.clear();
+        btnAceptar.setDisable(true);
+        btnRechazar.setDisable(true);
+        btnObservar.setDisable(true);
+    }
+
+    private void actualizarEstadoBotones(
+            SolicitudAgendamiento solicitud) {
+        boolean haySolicitudSeleccionada = solicitud != null;
+        boolean puedeAceptar = haySolicitudSeleccionada
+                && solicitud.getEstado() == EstadoSolicitud.PENDIENTE;
+
+        btnAceptar.setDisable(!puedeAceptar);
+        btnRechazar.setDisable(!haySolicitudSeleccionada);
+        btnObservar.setDisable(!haySolicitudSeleccionada);
     }
 
     private void cargarCombos() {
@@ -171,6 +202,7 @@ public class SolicitudAgendamientoController {
                 "[PANTALLA SOLICITUDES] Cargando solicitudes en la tabla."
         );
 
+        limpiarSolicitudSeleccionada();
         var lista = service.listarPendientesSinAudiencia();
 
         System.out.println(
@@ -298,6 +330,15 @@ public class SolicitudAgendamientoController {
                     "Debe seleccionar una solicitud."
             );
             System.out.println("No hay una solicitud seleccionada");
+            return;
+        }
+
+        if (seleccionada.getEstado() != EstadoSolicitud.PENDIENTE) {
+            mostrarMensaje(
+                    Alert.AlertType.WARNING,
+                    "Aceptar solicitud",
+                    "Solo se pueden aceptar solicitudes pendientes."
+            );
             return;
         }
 

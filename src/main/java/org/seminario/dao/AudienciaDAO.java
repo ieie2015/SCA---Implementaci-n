@@ -20,6 +20,8 @@ public class AudienciaDAO {
     private static final String SELECT_BASE =
             """
             SELECT a.idAUDIENCIA, a.idSOLICITUD_AGENDAMIENTO,
+                   s.CUIJ AS SOLICITUD_CUIJ,
+                   s.CARATULA AS SOLICITUD_CARATULA,
                    a.idTIPO_AUDIENCIA, a.idESTADO_AUDIENCIA,
                    a.idSALA, a.NRO_AUDIENCIA, a.FECHA_CREACION,
                    a.FECHA_PROGRAMACION, a.HORA_INICIO,
@@ -28,6 +30,8 @@ public class AudienciaDAO {
             FROM AUDIENCIA a
             JOIN ESTADO_AUDIENCIA ea
               ON ea.idESTADO_AUDIENCIA = a.idESTADO_AUDIENCIA
+            LEFT JOIN SOLICITUD_AGENDAMIENTO s
+              ON s.idSOLICITUD_AGENDAMIENTO = a.idSOLICITUD_AGENDAMIENTO
             """;
 
     public boolean guardar(Audiencia audiencia) {
@@ -289,8 +293,6 @@ public class AudienciaDAO {
     public List<Audiencia> buscarPorCuij(String cuij) {
         String sql =
                 SELECT_BASE
-                        + " JOIN SOLICITUD_AGENDAMIENTO s"
-                        + " ON s.idSOLICITUD_AGENDAMIENTO = a.idSOLICITUD_AGENDAMIENTO"
                         + " WHERE s.CUIJ = ? ORDER BY a.NRO_AUDIENCIA";
         try (Connection con = ConexionBD.conectar();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -361,6 +363,8 @@ public class AudienciaDAO {
         return new Audiencia(
                 rs.getLong("idAUDIENCIA"),
                 rs.getLong("idSOLICITUD_AGENDAMIENTO"),
+                rs.getObject("SOLICITUD_CUIJ", Long.class),
+                rs.getString("SOLICITUD_CARATULA"),
                 rs.getLong("idTIPO_AUDIENCIA"),
                 rs.getLong("idESTADO_AUDIENCIA"),
                 rs.wasNull() ? null : idSala,

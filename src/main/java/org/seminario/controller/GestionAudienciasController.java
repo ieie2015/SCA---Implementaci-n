@@ -43,6 +43,8 @@ public class GestionAudienciasController {
     @FXML private TableView<Audiencia> tvAudiencias;
     @FXML private TableColumn<Audiencia, Long> colNroAudiencia;
     @FXML private TableColumn<Audiencia, Long> colIdSolicitud;
+    @FXML private TableColumn<Audiencia, Long> colCuij;
+    @FXML private TableColumn<Audiencia, String> colCaratula;
     @FXML private TableColumn<Audiencia, Long> colTipoAudiencia;
     @FXML private TableColumn<Audiencia, String> colEstado;
     @FXML private TableColumn<Audiencia, Integer> colDuracion;
@@ -63,6 +65,10 @@ public class GestionAudienciasController {
                 new PropertyValueFactory<>("nroAudiencia"));
         colIdSolicitud.setCellValueFactory(
                 new PropertyValueFactory<>("idSolicitudAgendamiento"));
+        colCuij.setCellValueFactory(
+                new PropertyValueFactory<>("cuij"));
+        colCaratula.setCellValueFactory(
+                new PropertyValueFactory<>("caratula"));
         colTipoAudiencia.setCellValueFactory(
                 new PropertyValueFactory<>("idTipoAudiencia"));
         colEstado.setCellValueFactory(

@@ -27,6 +27,8 @@
                 <columns>
                     <TableColumn fx:id="colNroAudiencia" prefWidth="140.0" text="N° Audiencia" />
                     <TableColumn fx:id="colIdSolicitud" prefWidth="140.0" text="ID Solicitud" />
+                    <TableColumn fx:id="colCuij" prefWidth="140.0" text="CUIJ" />
+                    <TableColumn fx:id="colCaratula" prefWidth="240.0" text="Carátula" />
                     <TableColumn fx:id="colTipoAudiencia" prefWidth="150.0" text="Tipo Audiencia" />
                     <TableColumn fx:id="colEstado" prefWidth="190.0" text="Estado" />
                     <TableColumn fx:id="colDuracion" prefWidth="140.0" text="Duración (min)" />

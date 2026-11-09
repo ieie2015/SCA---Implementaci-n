@@ -21,3 +21,12 @@ Los identificadores desde 201 fueron reservados para estos datos de prueba. El c
 Se generaron datos para días hábiles desde el 05/11/2026 hasta el 31/12/2026, con 36 solicitudes y 30 audiencias pendientes de planificación. Las disponibilidades incluyen jornadas completas y franjas parciales para probar la intersección de horarios, además de salas en mantenimiento u ocupadas.
 
 Para reimportar el conjunto completo sobre una base que ya contiene estos identificadores, eliminar primero los registros anteriores de CU02 respetando el orden inverso de las claves foráneas, o importar en una base limpia.
+
+Como alternativa, `databases/General/Scripts/recargar_solicitudes_cu02.sql`
+recarga mediante SQL todo el conjunto CU02: tipos, salas, participantes,
+disponibilidades, solicitudes, audiencias y relaciones de audiencia. Elimina
+previamente solo los registros identificados por los IDs del conjunto CU02,
+respetando las dependencias, y no crea tablas ni modifica la estructura.
+
+Para consultar las audiencias ordenadas desde la más reciente hasta la más
+antigua, ejecutar `databases/General/Scripts/consultar_audiencias_recientes.sql`.

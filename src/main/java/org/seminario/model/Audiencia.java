@@ -14,6 +14,8 @@ public class Audiencia {
 
     private long idAudiencia;
     private long idSolicitudAgendamiento;
+    private Long cuij;
+    private String caratula;
     private long idTipoAudiencia;
     private long idEstadoAudiencia;
     private Integer idSala;
@@ -28,6 +30,8 @@ public class Audiencia {
     public Audiencia(
             long idAudiencia,
             long idSolicitudAgendamiento,
+            Long cuij,
+            String caratula,
             long idTipoAudiencia,
             long idEstadoAudiencia,
             Integer idSala,
@@ -40,6 +44,8 @@ public class Audiencia {
             String observaciones) {
         this.idAudiencia = idAudiencia;
         this.idSolicitudAgendamiento = idSolicitudAgendamiento;
+        this.cuij = cuij;
+        this.caratula = caratula;
         this.idTipoAudiencia = idTipoAudiencia;
         this.idEstadoAudiencia = idEstadoAudiencia;
         this.idSala = idSala;
@@ -66,6 +72,22 @@ public class Audiencia {
 
     public void setIdSolicitudAgendamiento(long idSolicitudAgendamiento) {
         this.idSolicitudAgendamiento = idSolicitudAgendamiento;
+    }
+
+    public Long getCuij() {
+        return cuij;
+    }
+
+    public void setCuij(Long cuij) {
+        this.cuij = cuij;
+    }
+
+    public String getCaratula() {
+        return caratula;
+    }
+
+    public void setCaratula(String caratula) {
+        this.caratula = caratula;
     }
 
     public long getIdTipoAudiencia() {
